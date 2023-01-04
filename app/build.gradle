@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.huawei.agconnect'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk 33
+
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.valu.assignment"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+        disable 'ExtraTranslation'
+    }
+
+    buildFeatures {
+        dataBinding true
+        mlModelBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            multiDexEnabled true
+//            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            signingConfig signingConfigs.config
+        }
+    }
+    compileOptions {
+        // Flag to enable support for the new language APIs
+//        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    //Hilt Allow references to generated code
+    kapt {
+        correctErrorTypes true
+    }
+}
+
+dependencies {
+
+    implementation defaultAndroidXDependencies.values()
+
+    implementation jetbackComponentDependencies.values()
+    implementation networkDependencies.values()
+    implementation thirdPartyLibrariesDependencies.values()
+    implementation kotlinDependancies.values()
+    implementation huawei.values()
+//    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+//    implementation firebaseDependencies.values()
+    implementation lifecycleDependencies.values()
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+
+    kapt jetbackComponentAnnotationProcessor.values()
+    kapt thirdPartyLibrariesAnnotationProcessor.values()
+
+    testImplementation jetbackComponentTesting.values()
+}

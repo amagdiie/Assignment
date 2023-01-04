@@ -1,0 +1,2 @@
+rootProject.name = "ValuAssignment"
+include ':app'
